@@ -18,6 +18,7 @@ services:
       - "database"
   database:
     image: "mcr.microsoft.com/mssql/server"
+    user: "0:0"
     hostname: "sqlserver"
     environment:
       SA_PASSWORD: "Backend123*"
