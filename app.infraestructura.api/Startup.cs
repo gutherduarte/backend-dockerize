@@ -30,7 +30,7 @@ namespace Api
             services.AddCors(options => {
               options.AddPolicy(corsPolicy, builder =>{
                 builder.AllowAnyOrigin();
-              })
+              });
             }
             );
             services.AddControllers();
