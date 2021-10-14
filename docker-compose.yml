@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  api:
+  API_Produccion:
     build: ./
     ports:
       - "4000:80"
@@ -9,47 +9,21 @@ services:
       PORT: 1433
       DATABASE: "AppDbContext"
       USERNAME: "sa"
-      PASSWORD: "Backend123*"
+      PASSWORD: "Produccion123*"
       INTEGRATED_SECURITY: "false"
       TRUST_SERVER_CERTIFICATE: "true"
     depends_on:
-      - database
+      - ProduccionDB
     links:
-      - "database"
-  api:
-    build: ./
-    ports:
-      - "5000:80"
-    environment:
-      SERVER: "sqlserverQA"
-      PORT: 1433
-      DATABASE: "AppDbContextQA"
-      USERNAME: "sa"
-      PASSWORD: "Backend123*QA"
-      INTEGRATED_SECURITY: "false"
-      TRUST_SERVER_CERTIFICATE: "true"
-    depends_on:
-      - databaseQA
-    links:
-      - "databaseQA"
-  database:
+      - "ProduccionDB"
+  ProduccionDB:
     image: "mcr.microsoft.com/mssql/server"
     user: "0:0"
     hostname: "sqlserver"
     environment:
-      SA_PASSWORD: "Backend123*"
+      SA_PASSWORD: "Produccion123*"
       ACCEPT_EULA: "Y"
     volumes:
-      - facturacion:/var/opt/mssql/data
-  databaseQA:
-    image: "mcr.microsoft.com/mssql/server"
-    user: "0:0"
-    hostname: "sqlserverQA"
-    environment:
-      SA_PASSWORD: "Backend123*QA"
-      ACCEPT_EULA: "Y"
-    volumes:
-      - QA:/var/opt/mssql/data
+      - ProduccionData:/var/opt/mssql/data
 volumes:
-  facturacion:
-  QA: -from facturacion:
+  ProduccionData:
