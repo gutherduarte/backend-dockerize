@@ -16,6 +16,22 @@ services:
       - database
     links:
       - "database"
+  api:
+    build: ./
+    ports:
+      - "5000:80"
+    environment:
+      SERVER: "sqlserverQA"
+      PORT: 1433
+      DATABASE: "AppDbContextQA"
+      USERNAME: "sa"
+      PASSWORD: "Backend123*QA"
+      INTEGRATED_SECURITY: "false"
+      TRUST_SERVER_CERTIFICATE: "true"
+    depends_on:
+      - databaseQA
+    links:
+      - "databaseQA"
   database:
     image: "mcr.microsoft.com/mssql/server"
     user: "0:0"
@@ -25,6 +41,15 @@ services:
       ACCEPT_EULA: "Y"
     volumes:
       - facturacion:/var/opt/mssql/data
+  databaseQA:
+    image: "mcr.microsoft.com/mssql/server"
+    user: "0:0"
+    hostname: "sqlserverQA"
+    environment:
+      SA_PASSWORD: "Backend123*QA"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - QA:/var/opt/mssql/data
 volumes:
   facturacion:
-  QA: facturacion:
+  QA: -from facturacion:
