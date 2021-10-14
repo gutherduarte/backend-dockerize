@@ -22,3 +22,7 @@ services:
     environment:
       SA_PASSWORD: "Backend123*"
       ACCEPT_EULA: "Y"
+    volumes:
+      - facturacion:/var/opt/mssql/data
+volumes:
+  facturacion:
